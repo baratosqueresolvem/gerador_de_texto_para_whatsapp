@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GERADOR DE TEXTO PARA WHATSAPP - BARATOS QUE RESOLVEM</title>
+    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5rhgZVN7-qZzVk1dEw0SQIvNU9jM5bVDH45EAHfKqKg&s=10">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FAD6C5; /* laranja mais escuro */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #app {
+            max-width: 820px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 40px 36px 20px;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.10), 0 8px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.2s;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .logo-container img {
+            height: 64px;
+            width: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #E63946 0%, #FF8C00 50%, #1E4A7A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #E63946;
+            background: rgba(230, 57, 70, 0.10);
+            display: inline-block;
+            padding: 4px 18px;
+            border-radius: 40px;
+            letter-spacing: -0.3px;
+            margin-top: 4px;
+            backdrop-filter: blur(4px);
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title span {
+            background: #dbeafe;
+            border-radius: 40px;
+            padding: 2px 12px;
+            font-size: 13px;
+            color: #1E4A7A;
+        }
+        .config {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), 0 0 20px rgba(255, 140, 0, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: box-shadow 0.3s;
+        }
+        .config:hover {
+            box-shadow: 0 4px 20px rgba(255, 140, 0, 0.20);
+        }
+        .config .config-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px 20px;
+            margin-bottom: 14px;
+        }
+        .config .config-row:last-child {
+            margin-bottom: 0;
+        }
+        .config .config-row label {
+            font-weight: 500;
+            color: #334155;
+            font-size: 15px;
+            margin-right: 4px;
+        }
+        .radio-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+        }
+        .radio-options label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 400;
+            color: #1e293b;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 6px 12px 6px 8px;
+            border-radius: 40px;
+            background: #f1f5f9;
+            transition: all 0.15s;
+        }
+        .radio-options label:hover { background: #e2e8f0; }
+        .radio-options label img.platform-logo {
+            height: 24px;
+            width: auto;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+        .radio-options input[type="radio"] {
+            accent-color: #1E4A7A;
+            width: 16px;
+            height: 16px;
+            margin: 0;
+        }
+        .radio-options input[type="radio"]:checked+.label-text { font-weight: 600; }
+        .radio-options label:has(input:checked) {
+            background: #dbeafe;
+            box-shadow: 0 0 0 1px #1E4A7A40;
+        }
+        #other-platform-input, #special-action-input {
+            flex: 1;
+            min-width: 160px;
+            padding: 10px 16px;
+            border-radius: 40px;
+            border: 1px solid #d1d9e6;
+            background: white;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s;
+            outline: none;
+        }
+        #other-platform-input:focus, #special-action-input:focus {
+            border-color: #1E4A7A;
+            box-shadow: 0 0 0 3px #1E4A7A20;
+        }
+        .products-section {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.12);
+            transition: box-shadow 0.3s;
+        }
+        .products-section:hover {
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.20);
+        }
+        .product-entry {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 20px 22px;
+            margin-bottom: 16px;
+            border: 1px solid #e9edf4;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .product-entry:last-of-type { margin-bottom: 20px; }
+        .product-entry .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .product-entry .product-header h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1E4A7A;
+        }
+        .product-entry .remove-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0 8px;
+            transition: color 0.15s;
+            line-height: 1;
+        }
+        .product-entry .remove-btn:hover { color: #E63946; }
+        .product-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 20px;
+        }
+        .product-fields .full-width { grid-column: 1 / -1; }
+        .product-fields label {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #475569;
+        }
+        .product-fields input {
+            padding: 10px 14px;
+            border-radius: 14px;
+            border: 1px solid #d1d9e6;
+            background: white;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s;
+            outline: none;
+        }
+        .product-fields input:focus {
+            border-color: #1E4A7A;
+            box-shadow: 0 0 0 3px #1E4A7A20;
+        }
+        .product-fields input::placeholder { color: #94a3b8; }
+        .add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f1f5f9;
+            border: 1px dashed #94a3b8;
+            border-radius: 40px;
+            padding: 10px 22px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .add-btn:hover {
+            background: #e2e8f0;
+            border-color: #FF8C00;
+            color: #E63946;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.25);
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .btn-primary {
+            background: #1E4A7A;
+            color: white;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px rgba(30, 74, 122, 0.25), 0 0 15px rgba(30, 74, 122, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            background: #143a5e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(30, 74, 122, 0.30), 0 0 25px rgba(30, 74, 122, 0.25);
+        }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #1e293b;
+            border: 1px solid #d1d9e6;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            border-color: #94a3b8;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+        .output-section {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 24px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            margin-top: 28px;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.12);
+            transition: box-shadow 0.3s;
+        }
+        .output-section:hover {
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.20);
+        }
+        .output-section .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .output-section .output-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        #result {
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 20px 24px;
+            font-size: 15px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Inter', monospace;
+            color: #0f172a;
+            min-height: 120px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        #result:empty::before {
+            content: "O texto gerado aparecerá aqui...";
+            color: #94a3b8;
+            font-style: italic;
+        }
+        .footer {
+            margin-top: 36px;
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .footer span {
+            opacity: 0.8;
+        }
+        .copy-feedback {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #1E4A7A;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.20), 0 0 20px rgba(30, 74, 122, 0.2);
+        }
+        .copy-feedback.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        @media (max-width: 640px) {
+            #app { padding: 24px 16px 16px; border-radius: 32px; }
+            .config, .products-section, .output-section { padding: 18px 16px; }
+            .product-fields { grid-template-columns: 1fr; }
+            .product-fields .full-width { grid-column: 1; }
+            .config .config-row { flex-direction: column; align-items: stretch; }
+            .radio-options { justify-content: center; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+            .actions { flex-direction: column; }
+            header h1 { font-size: 22px; }
+            header h2 { font-size: 17px; }
+            .logo-container img { height: 48px; }
+        }
+        #result::-webkit-scrollbar { width: 6px; }
+        #result::-webkit-scrollbar-track { background: transparent; }
+        #result::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 12px; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="logo-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5rhgZVN7-qZzVk1dEw0SQIvNU9jM5bVDH45EAHfKqKg&s=10" alt="Logo Baratos que Resolvem">
+                <h1>GERADOR DE TEXTO PARA WHATSAPP</h1>
+            </div>
+            <h2>BARATOS QUE RESOLVEM</h2>
+        </header>
+
+        <main>
+            <!-- Configurações -->
+            <section class="config">
+                <!-- Plataforma -->
+                <div class="config-row">
+                    <label>Plataforma:</label>
+                    <div class="radio-options" id="platform-options">
+                        <label>
+                            <input type="radio" name="platform" value="Mercado Livre" checked>
+                            <img class="platform-logo" src="https://www.pngkey.com/png/full/420-4206772_mercado-livre-logo-mercadolibre-inc.png" alt="Mercado Livre">
+                            <span class="label-text">Mercado Livre</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="platform" value="Shopee">
+                            <img class="platform-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzzzqCLLTi5oGFbM-8UxWcL6Uo2FPoaCllj9_1gkwjtg&s=10" alt="Shopee">
+                            <span class="label-text">Shopee</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="platform" value="Tik Tok Shop">
+                            <img class="platform-logo" src="https://static.freepnglogo.com/images/all_img/1714299307tiktok-shop-icon-png.png" alt="Tik Tok Shop">
+                            <span class="label-text">Tik Tok Shop</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="platform" value="Outro">
+                            <span class="label-text">Outro</span>
+                        </label>
+                    </div>
+                    <input type="text" id="other-platform-input" placeholder="Digite o nome da plataforma" style="display:none;">
+                </div>
+
+                <!-- Ação Especial -->
+                <div class="config-row">
+                    <label>Ação Especial?</label>
+                    <div class="radio-options" id="special-action-options">
+                        <label>
+                            <input type="radio" name="special_action" value="nao" checked>
+                            <span class="label-text">NÃO</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="special_action" value="sim">
+                            <span class="label-text">SIM</span>
+                        </label>
+                    </div>
+                    <input type="text" id="special-action-input" placeholder="Digite a ação especial (ex: Black Friday)" style="display:none;">
+                </div>
+            </section>
+
+            <!-- Produtos -->
+            <section class="products-section">
+                <div class="section-title">
+                    Produtos
+                    <span id="product-count">1</span>
+                </div>
+                <div id="products-container"></div>
+                <button class="add-btn" id="add-product-btn">+ Adicionar produto</button>
+            </section>
+
+            <div class="actions">
+                <button class="btn-primary" id="generate-btn">🚀 Gerar texto</button>
+                <button class="btn-secondary" id="clear-btn">🗑️ Limpar tudo</button>
+            </div>
+
+            <section class="output-section">
+                <div class="output-header">
+                    <h3>📋 Texto para WhatsApp</h3>
+                    <button class="btn-secondary" id="copy-btn" style="padding: 8px 20px; font-size: 14px;">📄 Copiar</button>
+                </div>
+                <div id="result"></div>
+            </section>
+        </main>
+
+        <!-- Rodapé -->
+        <footer class="footer">
+            <span>DESENVOLVIDO POR JEFFERSON FERREIRA PARA A BARATOS QUE RESOLVEM © 2026</span>
+        </footer>
+    </div>
+
+    <div id="copy-feedback" class="copy-feedback">✅ Texto copiado!</div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ---------- Estado ----------
+            let products = [];
+            let productIdCounter = 0;
+
+            // Elementos DOM
+            const container = document.getElementById('products-container');
+            const addBtn = document.getElementById('add-product-btn');
+            const generateBtn = document.getElementById('generate-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            const resultDiv = document.getElementById('result');
+            const platformRadios = document.querySelectorAll('input[name="platform"]');
+            const otherInput = document.getElementById('other-platform-input');
+            const specialActionRadios = document.querySelectorAll('input[name="special_action"]');
+            const specialActionInput = document.getElementById('special-action-input');
+            const productCountSpan = document.getElementById('product-count');
+            const feedback = document.getElementById('copy-feedback');
+
+            // Emojis para produtos
+            const productEmojis = ['🎧', '🔊', '🖱️', '📱', '💻', '⌚', '🎮', '📷', '🖨️', '⌨️', '🖥️', '📡', '🔌', '💾', '📀'];
+
+            // ---------- Utilitários ----------
+            function formatPrice(value) {
+                let cleaned = value.replace(/[^\d,.]/g, '');
+                cleaned = cleaned.replace(/\./g, ',');
+                let parts = cleaned.split(',');
+                let intPart = parts[0] || '0';
+                let decPart = parts.length > 1 ? parts.slice(1).join('') : '';
+                decPart = decPart.slice(0, 2);
+                if (decPart.length === 1) decPart += '0';
+                if (decPart.length === 0) decPart = '00';
+                intPart = intPart.replace(/^0+/, '') || '0';
+                return intPart + ',' + decPart;
+            }
+
+            function parsePriceToFloat(str) {
+                let s = str.replace(/\./g, '').replace(',', '.');
+                return parseFloat(s) || 0;
+            }
+
+            function formatFloatToPrice(num) {
+                return num.toFixed(2).replace('.', ',');
+            }
+
+            // ---------- Renderização de produtos ----------
+            function renderProducts() {
+                container.innerHTML = '';
+                if (products.length === 0) {
+                    addProduct('', '', '');
+                }
+                products.forEach((p, index) => {
+                    const entry = document.createElement('div');
+                    entry.className = 'product-entry';
+                    entry.dataset.id = p.id;
+
+                    const header = document.createElement('div');
+                    header.className = 'product-header';
+                    const title = document.createElement('h4');
+                    title.textContent = `Produto ${index + 1}`;
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.textContent = '✕';
+                    removeBtn.title = 'Remover produto';
+                    removeBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        removeProduct(p.id);
+                    });
+                    header.appendChild(title);
+                    header.appendChild(removeBtn);
+
+                    const fields = document.createElement('div');
+                    fields.className = 'product-fields';
+
+                    const descLabel = document.createElement('label');
+                    descLabel.textContent = 'Descrição';
+                    const descInput = document.createElement('input');
+                    descInput.type = 'text';
+                    descInput.className = 'desc-input';
+                    descInput.placeholder = 'Ex: Fone de ouvido Bluetooth';
+                    descInput.value = p.desc || '';
+                    descInput.addEventListener('input', () => { p.desc = descInput.value; });
+                    descLabel.appendChild(descInput);
+
+                    const linkLabel = document.createElement('label');
+                    linkLabel.textContent = 'Link (opcional)';
+                    const linkInput = document.createElement('input');
+                    linkInput.type = 'url';
+                    linkInput.className = 'link-input';
+                    linkInput.placeholder = 'https://...';
+                    linkInput.value = p.link || '';
+                    linkInput.addEventListener('input', () => { p.link = linkInput.value; });
+                    linkLabel.appendChild(linkInput);
+
+                    const priceLabel = document.createElement('label');
+                    priceLabel.textContent = 'Preço (R$)';
+                    const priceInput = document.createElement('input');
+                    priceInput.type = 'text';
+                    priceInput.className = 'price-input';
+                    priceInput.placeholder = '00,00';
+                    priceInput.value = p.price || '';
+                    priceInput.addEventListener('blur', () => {
+                        if (priceInput.value.trim() !== '') {
+                            const formatted = formatPrice(priceInput.value);
+                            priceInput.value = formatted;
+                            p.price = formatted;
+                        } else {
+                            p.price = '';
+                        }
+                    });
+                    priceInput.addEventListener('input', () => {
+                        p.price = priceInput.value;
+                    });
+                    priceLabel.appendChild(priceInput);
+
+                    fields.appendChild(descLabel);
+                    fields.appendChild(linkLabel);
+                    fields.appendChild(priceLabel);
+
+                    entry.appendChild(header);
+                    entry.appendChild(fields);
+                    container.appendChild(entry);
+                });
+                updateProductCount();
+            }
+
+            function updateProductCount() {
+                productCountSpan.textContent = products.length;
+            }
+
+            // ---------- CRUD produtos ----------
+            function addProduct(desc = '', link = '', price = '') {
+                const id = productIdCounter++;
+                products.push({ id, desc, link, price });
+                renderProducts();
+                const entries = container.querySelectorAll('.product-entry');
+                if (entries.length > 0) {
+                    entries[entries.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+
+            function removeProduct(id) {
+                if (products.length <= 1) {
+                    showFeedback('É necessário pelo menos um produto', 2000);
+                    return;
+                }
+                products = products.filter(p => p.id !== id);
+                renderProducts();
+            }
+
+            function clearAllProducts() {
+                products = [];
+                addProduct('', '', '');
+                resultDiv.textContent = '';
+            }
+
+            // ---------- Obter plataforma e ação especial ----------
+            function getPlatform() {
+                let selected = '';
+                for (const radio of platformRadios) {
+                    if (radio.checked) {
+                        selected = radio.value;
+                        break;
+                    }
+                }
+                if (selected === 'Outro') {
+                    const val = otherInput.value.trim();
+                    return val || 'Outro';
+                }
+                return selected;
+            }
+
+            function getSpecialAction() {
+                let isSim = false;
+                for (const radio of specialActionRadios) {
+                    if (radio.checked && radio.value === 'sim') {
+                        isSim = true;
+                        break;
+                    }
+                }
+                if (isSim) {
+                    return specialActionInput.value.trim();
+                }
+                return '';
+            }
+
+            function getPreposition(platform) {
+                const normalized = platform.toLowerCase();
+                if (normalized === 'shopee') {
+                    return 'NA';
+                }
+                return 'NO';
+            }
+
+            // ---------- Gerar texto ----------
+            function generateText() {
+                // Coleta dados dos inputs
+                const entries = container.querySelectorAll('.product-entry');
+                entries.forEach((entry) => {
+                    const id = parseInt(entry.dataset.id);
+                    const product = products.find(p => p.id === id);
+                    if (product) {
+                        const descInput = entry.querySelector('.desc-input');
+                        const linkInput = entry.querySelector('.link-input');
+                        const priceInput = entry.querySelector('.price-input');
+                        if (descInput) product.desc = descInput.value;
+                        if (linkInput) product.link = linkInput.value;
+                        if (priceInput) {
+                            let val = priceInput.value.trim();
+                            if (val !== '') {
+                                val = formatPrice(val);
+                                priceInput.value = val;
+                                product.price = val;
+                            } else {
+                                product.price = '';
+                            }
+                        }
+                    }
+                });
+
+                const platform = getPlatform();
+                if (!platform || platform === 'Outro' || platform.trim() === '') {
+                    alert('Por favor, selecione ou digite o nome da plataforma.');
+                    return '';
+                }
+
+                const validProducts = products.filter(p => p.desc.trim() !== '' && p.price.trim() !== '');
+                if (validProducts.length === 0) {
+                    alert('Preencha pelo menos um produto com descrição e preço.');
+                    return '';
+                }
+
+                const preposition = getPreposition(platform);
+                const platformUpper = platform.toUpperCase();
+
+                // Ação especial
+                const specialText = getSpecialAction();
+                let headline = '💰 *Achadinhos que valem a pena de verdade!*';
+                if (specialText) {
+                    headline = `💰 *Vem aí o ${specialText}!*`;
+                }
+
+                let lines = [];
+                lines.push(`🔥 *OFERTAS DA SEMANA ${preposition} ${platformUpper}!* 🔥`);
+                lines.push('');
+                lines.push(headline);
+                lines.push('');
+                lines.push('Sabe aquele produto que você estava querendo, mas estava esperando baixar o preço? 👀');
+                lines.push('');
+                lines.push('*Pode ser a hora!*');
+                lines.push('');
+                lines.push(`Garimpamos algumas ofertas com preços especiais ${preposition} *${platform}* e separamos para você 👇`);
+                lines.push('');
+
+                products.forEach((p, index) => {
+                    const desc = p.desc.trim() || 'Produto sem descrição';
+                    const priceStr = p.price.trim() || '0,00';
+                    const priceNum = parsePriceToFloat(priceStr);
+                    const priceWithMarkup = priceNum * 1.12;
+                    const formattedMarkup = formatFloatToPrice(priceWithMarkup);
+                    const emoji = productEmojis[index % productEmojis.length];
+
+                    lines.push(`${emoji} *${desc}*`);
+                    lines.push(`~~R$ ${formattedMarkup}~~ → *R$ ${priceStr}* 🔥`);
+                    lines.push('');
+                });
+
+                lines.push('👉 *Confira as ofertas aqui:*');
+                lines.push('https://www.baratosqueresolvem.com.br/');
+                lines.push('');
+                lines.push('⏰ *ATENÇÃO:* preço promocional e disponibilidade podem mudar a qualquer momento.');
+                lines.push('');
+                lines.push('💡 *Viu algo que gostou? Não deixa para depois.* Oferta boa é aquela que você consegue aproveitar antes que o preço volte a subir! 😉');
+
+                const finalText = lines.join('\n');
+                resultDiv.textContent = finalText;
+                return finalText;
+            }
+
+            // ---------- Copiar ----------
+            function copyText() {
+                const text = resultDiv.textContent;
+                if (!text || text === 'O texto gerado aparecerá aqui...') {
+                    showFeedback('Nada para copiar', 2000);
+                    return;
+                }
+                navigator.clipboard.writeText(text).then(() => {
+                    showFeedback('✅ Texto copiado!', 2000);
+                }).catch(() => {
+                    const range = document.createRange();
+                    range.selectNode(resultDiv);
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    document.execCommand('copy');
+                    window.getSelection().removeAllRanges();
+                    showFeedback('✅ Texto copiado!', 2000);
+                });
+            }
+
+            // ---------- Feedback ----------
+            let feedbackTimeout = null;
+            function showFeedback(msg, duration = 2000) {
+                feedback.textContent = msg;
+                feedback.classList.add('show');
+                clearTimeout(feedbackTimeout);
+                feedbackTimeout = setTimeout(() => {
+                    feedback.classList.remove('show');
+                }, duration);
+            }
+
+            // ---------- Eventos ----------
+            // Mostrar/ocultar campo "Outro"
+            platformRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if (radio.value === 'Outro' && radio.checked) {
+                        otherInput.style.display = 'block';
+                        otherInput.focus();
+                    } else if (radio.value !== 'Outro' && radio.checked) {
+                        otherInput.style.display = 'none';
+                        otherInput.value = '';
+                    }
+                });
+            });
+
+            // Mostrar/ocultar campo "Ação Especial" (SIM)
+            specialActionRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if (radio.value === 'sim' && radio.checked) {
+                        specialActionInput.style.display = 'block';
+                        specialActionInput.focus();
+                    } else if (radio.value === 'nao' && radio.checked) {
+                        specialActionInput.style.display = 'none';
+                        specialActionInput.value = '';
+                    }
+                });
+            });
+
+            // Inicializar visibilidade do "Outro"
+            const checkedPlatform = document.querySelector('input[name="platform"]:checked');
+            if (checkedPlatform && checkedPlatform.value === 'Outro') {
+                otherInput.style.display = 'block';
+            } else {
+                otherInput.style.display = 'none';
+            }
+
+            // Inicializar visibilidade do "Ação Especial"
+            const checkedSpecial = document.querySelector('input[name="special_action"]:checked');
+            if (checkedSpecial && checkedSpecial.value === 'sim') {
+                specialActionInput.style.display = 'block';
+            } else {
+                specialActionInput.style.display = 'none';
+            }
+
+            // Adicionar produto
+            addBtn.addEventListener('click', () => {
+                addProduct('', '', '');
+            });
+
+            // Gerar
+            generateBtn.addEventListener('click', generateText);
+
+            // Limpar
+            clearBtn.addEventListener('click', () => {
+                if (confirm('Limpar todos os produtos e o texto gerado?')) {
+                    clearAllProducts();
+                }
+            });
+
+            // Copiar
+            copyBtn.addEventListener('click', copyText);
+
+            // Atalho: Ctrl+Enter
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    e.preventDefault();
+                    generateBtn.click();
+                }
+            });
+
+            // Inicialização
+            addProduct('', '', '');
+            console.log('🚀 GERADOR DE TEXTO PARA WHATSAPP - BARATOS QUE RESOLVEM');
+        })();
+    </script>
+</body>
+</html>
