@@ -9,14 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background: #FFF5E6; /* laranja claro */
+            background: #FAD6C5;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -30,7 +26,7 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 48px;
-            padding: 40px 36px;
+            padding: 40px 36px 20px;
             box-shadow: 0 20px 60px rgba(0, 20, 40, 0.10), 0 8px 24px rgba(0, 0, 0, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.5);
             transition: all 0.2s;
@@ -100,8 +96,12 @@
             border-radius: 28px;
             padding: 24px 28px;
             margin-bottom: 28px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), 0 0 20px rgba(255, 140, 0, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: box-shadow 0.3s;
+        }
+        .config:hover {
+            box-shadow: 0 4px 20px rgba(255, 140, 0, 0.20);
         }
         .config .config-row {
             display: flex;
@@ -110,9 +110,7 @@
             gap: 12px 20px;
             margin-bottom: 14px;
         }
-        .config .config-row:last-child {
-            margin-bottom: 0;
-        }
+        .config .config-row:last-child { margin-bottom: 0; }
         .config .config-row label {
             font-weight: 500;
             color: #334155;
@@ -178,6 +176,11 @@
             padding: 24px 28px;
             margin-bottom: 28px;
             border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.12);
+            transition: box-shadow 0.3s;
+        }
+        .products-section:hover {
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.20);
         }
         .product-entry {
             background: #f8fafc;
@@ -259,6 +262,7 @@
             background: #e2e8f0;
             border-color: #FF8C00;
             color: #E63946;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.25);
         }
         .actions {
             display: flex;
@@ -277,7 +281,7 @@
             font-family: inherit;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 4px 14px rgba(30, 74, 122, 0.25);
+            box-shadow: 0 4px 14px rgba(30, 74, 122, 0.25), 0 0 15px rgba(30, 74, 122, 0.15);
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -285,7 +289,7 @@
         .btn-primary:hover {
             background: #143a5e;
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(30, 74, 122, 0.30);
+            box-shadow: 0 8px 24px rgba(30, 74, 122, 0.30), 0 0 25px rgba(30, 74, 122, 0.25);
         }
         .btn-primary:active { transform: translateY(0); }
         .btn-secondary {
@@ -306,6 +310,7 @@
         .btn-secondary:hover {
             background: #e2e8f0;
             border-color: #94a3b8;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
         }
         .output-section {
             background: #ffffffcc;
@@ -314,6 +319,11 @@
             padding: 24px 28px;
             border: 1px solid rgba(255, 255, 255, 0.7);
             margin-top: 28px;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.12);
+            transition: box-shadow 0.3s;
+        }
+        .output-section:hover {
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.20);
         }
         .output-section .output-header {
             display: flex;
@@ -349,6 +359,17 @@
             color: #94a3b8;
             font-style: italic;
         }
+        .footer {
+            margin-top: 36px;
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .footer span { opacity: 0.8; }
         .copy-feedback {
             position: fixed;
             bottom: 30px;
@@ -363,14 +384,14 @@
             opacity: 0;
             transition: all 0.3s ease;
             pointer-events: none;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.20), 0 0 20px rgba(30, 74, 122, 0.2);
         }
         .copy-feedback.show {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
         @media (max-width: 640px) {
-            #app { padding: 24px 16px; border-radius: 32px; }
+            #app { padding: 24px 16px 16px; border-radius: 32px; }
             .config, .products-section, .output-section { padding: 18px 16px; }
             .product-fields { grid-template-columns: 1fr; }
             .product-fields .full-width { grid-column: 1; }
@@ -398,9 +419,7 @@
         </header>
 
         <main>
-            <!-- Configurações -->
             <section class="config">
-                <!-- Plataforma -->
                 <div class="config-row">
                     <label>Plataforma:</label>
                     <div class="radio-options" id="platform-options">
@@ -427,7 +446,6 @@
                     <input type="text" id="other-platform-input" placeholder="Digite o nome da plataforma" style="display:none;">
                 </div>
 
-                <!-- Ação Especial -->
                 <div class="config-row">
                     <label>Ação Especial?</label>
                     <div class="radio-options" id="special-action-options">
@@ -444,7 +462,6 @@
                 </div>
             </section>
 
-            <!-- Produtos -->
             <section class="products-section">
                 <div class="section-title">
                     Produtos
@@ -467,6 +484,10 @@
                 <div id="result"></div>
             </section>
         </main>
+
+        <footer class="footer">
+            <span>DESENVOLVIDO POR JEFFERSON FERREIRA PARA A BARATOS QUE RESOLVEM © 2026</span>
+        </footer>
     </div>
 
     <div id="copy-feedback" class="copy-feedback">✅ Texto copiado!</div>
@@ -475,11 +496,9 @@
         (function() {
             'use strict';
 
-            // ---------- Estado ----------
             let products = [];
             let productIdCounter = 0;
 
-            // Elementos DOM
             const container = document.getElementById('products-container');
             const addBtn = document.getElementById('add-product-btn');
             const generateBtn = document.getElementById('generate-btn');
@@ -493,10 +512,8 @@
             const productCountSpan = document.getElementById('product-count');
             const feedback = document.getElementById('copy-feedback');
 
-            // Emojis para produtos
             const productEmojis = ['🎧', '🔊', '🖱️', '📱', '💻', '⌚', '🎮', '📷', '🖨️', '⌨️', '🖥️', '📡', '🔌', '💾', '📀'];
 
-            // ---------- Utilitários ----------
             function formatPrice(value) {
                 let cleaned = value.replace(/[^\d,.]/g, '');
                 cleaned = cleaned.replace(/\./g, ',');
@@ -519,7 +536,6 @@
                 return num.toFixed(2).replace('.', ',');
             }
 
-            // ---------- Renderização de produtos ----------
             function renderProducts() {
                 container.innerHTML = '';
                 if (products.length === 0) {
@@ -604,7 +620,6 @@
                 productCountSpan.textContent = products.length;
             }
 
-            // ---------- CRUD produtos ----------
             function addProduct(desc = '', link = '', price = '') {
                 const id = productIdCounter++;
                 products.push({ id, desc, link, price });
@@ -630,7 +645,6 @@
                 resultDiv.textContent = '';
             }
 
-            // ---------- Obter plataforma e ação especial ----------
             function getPlatform() {
                 let selected = '';
                 for (const radio of platformRadios) {
@@ -668,9 +682,8 @@
                 return 'NO';
             }
 
-            // ---------- Gerar texto ----------
             function generateText() {
-                // Coleta dados dos inputs
+                // Atualiza os dados dos inputs
                 const entries = container.querySelectorAll('.product-entry');
                 entries.forEach((entry) => {
                     const id = parseInt(entry.dataset.id);
@@ -709,7 +722,6 @@
                 const preposition = getPreposition(platform);
                 const platformUpper = platform.toUpperCase();
 
-                // Ação especial
                 const specialText = getSpecialAction();
                 let headline = '💰 *Achadinhos que valem a pena de verdade!*';
                 if (specialText) {
@@ -725,9 +737,11 @@
                 lines.push('');
                 lines.push('*Pode ser a hora!*');
                 lines.push('');
-                lines.push(`Garimpamos algumas ofertas com preços especiais ${preposition} *${platform}* e separamos para você 👇`);
+                // Preposição em minúsculo no corpo do texto
+                lines.push(`Garimpamos algumas ofertas com preços especiais ${preposition.toLowerCase()} *${platform}* e separamos para você 👇`);
                 lines.push('');
 
+                // Para cada produto, inclui descrição, preço (com tachado) e link (se houver)
                 products.forEach((p, index) => {
                     const desc = p.desc.trim() || 'Produto sem descrição';
                     const priceStr = p.price.trim() || '0,00';
@@ -735,12 +749,17 @@
                     const priceWithMarkup = priceNum * 1.12;
                     const formattedMarkup = formatFloatToPrice(priceWithMarkup);
                     const emoji = productEmojis[index % productEmojis.length];
+                    const link = p.link.trim();
 
                     lines.push(`${emoji} *${desc}*`);
                     lines.push(`~~R$ ${formattedMarkup}~~ → *R$ ${priceStr}* 🔥`);
-                    lines.push('');
+                    if (link) {
+                        lines.push(link);
+                    }
+                    lines.push(''); // linha em branco entre produtos
                 });
 
+                // Link fixo do site e encerramento
                 lines.push('👉 *Confira as ofertas aqui:*');
                 lines.push('https://www.baratosqueresolvem.com.br/');
                 lines.push('');
@@ -753,7 +772,6 @@
                 return finalText;
             }
 
-            // ---------- Copiar ----------
             function copyText() {
                 const text = resultDiv.textContent;
                 if (!text || text === 'O texto gerado aparecerá aqui...') {
@@ -773,7 +791,6 @@
                 });
             }
 
-            // ---------- Feedback ----------
             let feedbackTimeout = null;
             function showFeedback(msg, duration = 2000) {
                 feedback.textContent = msg;
@@ -784,8 +801,7 @@
                 }, duration);
             }
 
-            // ---------- Eventos ----------
-            // Mostrar/ocultar campo "Outro"
+            // Eventos
             platformRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
                     if (radio.value === 'Outro' && radio.checked) {
@@ -798,7 +814,6 @@
                 });
             });
 
-            // Mostrar/ocultar campo "Ação Especial" (SIM)
             specialActionRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
                     if (radio.value === 'sim' && radio.checked) {
@@ -811,7 +826,6 @@
                 });
             });
 
-            // Inicializar visibilidade do "Outro"
             const checkedPlatform = document.querySelector('input[name="platform"]:checked');
             if (checkedPlatform && checkedPlatform.value === 'Outro') {
                 otherInput.style.display = 'block';
@@ -819,7 +833,6 @@
                 otherInput.style.display = 'none';
             }
 
-            // Inicializar visibilidade do "Ação Especial"
             const checkedSpecial = document.querySelector('input[name="special_action"]:checked');
             if (checkedSpecial && checkedSpecial.value === 'sim') {
                 specialActionInput.style.display = 'block';
@@ -827,25 +840,20 @@
                 specialActionInput.style.display = 'none';
             }
 
-            // Adicionar produto
             addBtn.addEventListener('click', () => {
                 addProduct('', '', '');
             });
 
-            // Gerar
             generateBtn.addEventListener('click', generateText);
 
-            // Limpar
             clearBtn.addEventListener('click', () => {
                 if (confirm('Limpar todos os produtos e o texto gerado?')) {
                     clearAllProducts();
                 }
             });
 
-            // Copiar
             copyBtn.addEventListener('click', copyText);
 
-            // Atalho: Ctrl+Enter
             document.addEventListener('keydown', (e) => {
                 if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                     e.preventDefault();
